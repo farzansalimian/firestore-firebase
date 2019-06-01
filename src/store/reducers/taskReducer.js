@@ -18,11 +18,7 @@ const taskReducer = (state = initState, action) => {
       return state;
 
     case 'SET_FILTER':
-      if (action.payload)
       console.log('SET_FILTER By '+action.payload.name);
-        else
-        console.log('SET_FILTER_SHOW_ALL_TASK');
-
       return state;
     case 'DELETE_TASK_SUCCESS':
       console.log('DELETE_TASK_SUCCESS');

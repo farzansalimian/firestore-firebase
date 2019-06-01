@@ -19,12 +19,15 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             tag1: true,
-            tag2: true
+            tag2: true,
+            newTaskTitle: 'test',
+            filteredTag: '',
         };
         this.addNewTask = this.addNewTask.bind(this);
     }
 
     setFilter(tag) {
+        this.setState({filteredTag: tag.name});
         this.props.filterTasks(tag);
     }
 
@@ -40,7 +43,7 @@ class Dashboard extends Component {
             tags[tag2.id] = { color: tag2.color, name: tag2.name };
         }
         const task = {
-            title: this.state.newTaskTitle,
+            title: this.state.newTaskTitle || 'test',
             tagIds,
             tags
         };
@@ -210,25 +213,20 @@ class Dashboard extends Component {
             >
             Add Task
         </button>
+        {this.state.filteredTag ? `Filter By ${this.state.filteredTag}` : null}
 
-        <div className="row justify-content-center my-5">
+    <div className="row justify-content-center my-5">
             <button
         onClick={() => this.setFilter(tag1)}
-        className="col-3 btn btn-light"
+        className="col-4 btn btn-light"
             >
             Show Task With Tag 1
         </button>
         <button
         onClick={() => this.setFilter(tag2)}
-        className="col-3 btn btn-light mx-2"
+        className="col-4 btn btn-light mx-2"
             >
             Show Task With Tag 2
-        </button>
-        <button
-        onClick={() => this.setFilter()}
-        className="col-3 btn btn-light"
-            >
-            Show All Tasks
         </button>
         </div>
         </div>
@@ -260,7 +258,7 @@ const mapDataToArray = (items) => {
 };
 
 const mapStateToProps = state =>
-    // console.log(state);
+// console.log(state);
     ({
         auth: state.firebase.auth,
         tags: state.firestore.ordered.tags,
